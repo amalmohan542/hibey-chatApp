@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{ useState } from 'react';
 import './App.css';
 
 function App() {
+  const [input,setInput] = useState("");
+  const [messages,setMessage] = useState([""]);
+  
+  console.log(input);
+  console.log(messages);
+
+  const sendMessage = (event) => 
+  {
+    event.preventDefault();
+    setMessage([...messages,input]);
+    setInput(" ");
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hibey-Messenger</h1>
+      <form>
+         <input value={input} onChange={event=> setInput(event.target.value)}/>
+         <button onClick={sendMessage} type="submit">Send Message</button>
+      </form>
+      {/* Code to Display messages */}
+      {
+        messages.map(message => (
+          <p>{message}</p>
+        ))
+
+      }
     </div>
   );
 }
